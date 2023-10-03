@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner";
 function HomeScreen() {
   const isDesktop = useBreakpointValue({ base: false, md: true });
   const navigate = useNavigate();
@@ -44,6 +45,8 @@ export default HomeScreen;
 const DesktopLayout = ({ navigate }) => (
   <Box>
     <Header></Header>
+    {/* <Banner images={["/banner1.svg", "/banner2.svg"]} /> */}
+    <Banner />
   </Box>
 );
 
