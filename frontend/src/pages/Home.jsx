@@ -25,17 +25,17 @@ function HomeScreen() {
 
   return (
     <>
-      <Box w="100%" minH="100vh" mx={0}>
-        <Container maxW="container.xxl" minH="100vh" mb={28} padding={0}>
-          {isDesktop
-            ? DesktopLayout({
-                navigate,
-              })
-            : MobileLayout({
-                navigate,
-              })}
-        </Container>
-      </Box>
+      {/* <Box w="100%" minH="100vh" mx={0}> */}
+      <Container maxW="container.xxl" minH="100vh" mb={28} padding={0}>
+        {isDesktop
+          ? DesktopLayout({
+              navigate,
+            })
+          : MobileLayout({
+              navigate,
+            })}
+      </Container>
+      {/* </Box> */}
     </>
   );
 }

@@ -30,7 +30,7 @@ function Header() {
         h="10vh"
         justify="space-between"
         p={"4rem"}
-        bgColor={"white"}>
+        bgColor={"black"}>
         {isDesktop
           ? DesktopLayout({
               navigate,

@@ -1,54 +1,3 @@
-// import { Box, useBreakpointValue, Container, Image } from "@chakra-ui/react";
-
-// import React, { useRef, useState } from "react";
-// // Import Swiper React components
-// import { Swiper, SwiperSlide } from "swiper/react";
-
-// // Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
-
-// // import required modules
-// import { Navigation, Pagination } from "swiper/modules";
-
-// function Banner({ images }) {
-//   const isDesktop = useBreakpointValue({ base: false, md: true });
-//   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
-//   return (
-//     <>
-//       <Box>
-//         {isDesktop ? (
-//           <DesktopLayout images={images} />
-//         ) : (
-//           <MobileLayout images={images} />
-//         )}
-//       </Box>
-//     </>
-//   );
-// }
-
-// export default Banner;
-
-// const DesktopLayout = ({ images }) => (
-//     <Swiper
-//       slidesPerView={1}
-//       navigation
-//       loop
-//       autoplay
-//       style={{ width: "100%", height: "auto" }}>
-//       {images.map((image, index) => (
-//         <SwiperSlide key={index}>
-//           <img src={image} alt={`Banner ${index + 1}`} />
-//         </SwiperSlide>
-//       ))}
-//     </Swiper>
-
-// );
-
-// const MobileLayout = ({ images }) => <Box />;
-
 import React, { useState } from "react";
 import {
   Box,
@@ -72,11 +21,11 @@ function Banner() {
 
   return (
     <>
-      <Box w="100%" minH="100vh" mx={0}>
+      <Box mx={0}>
         {isDesktop ? (
           <DesktopLayout
             images={images}
-            setCurrentSlideIndex={setCurrentSlideIndex} // Pass the function as a prop
+            setCurrentSlideIndex={setCurrentSlideIndex}
           />
         ) : (
           <MobileLayout />
@@ -88,7 +37,7 @@ function Banner() {
 export default Banner;
 
 const DesktopLayout = ({ images, setCurrentSlideIndex }) => (
-  <Container width="100%" px={0}>
+  <Container w="100vw">
     <Swiper
       modules={[Autoplay, Pagination, Navigation]}
       spaceBetween={50}
@@ -101,7 +50,7 @@ const DesktopLayout = ({ images, setCurrentSlideIndex }) => (
       }}>
       {images.map((image) => (
         <SwiperSlide key={image._id}>
-          <Image objectFit="cover" src={image.src} alt="banner" />
+          <Image objectFit="cover" width="100%" src={image.src} alt="banner" />
         </SwiperSlide>
       ))}
     </Swiper>
