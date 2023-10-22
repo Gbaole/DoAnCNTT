@@ -15,12 +15,23 @@ import {
   Center,
   Wrap,
   CardFooter,
+  Input,
+  Grid,
+  GridItem,
+  IconButton,
+  Icon,
 } from "@chakra-ui/react";
-import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner";
-function HomeScreen() {
-  const isDesktop = useBreakpointValue({ base: false, md: true });
+import { AiOutlineThunderbolt, AiOutlineGlobal } from "react-icons/ai";
+import { TbTruckDelivery } from "react-icons/tb";
+import { MdOutlineDiscount } from "react-icons/md";
+import { HiMiniDevicePhoneMobile } from "react-icons/hi2";
+import { BsFire } from "react-icons/bs";
+import Categories from "./Categories";
+
+const HomeScreen = () => {
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
   const navigate = useNavigate();
 
   return (
@@ -38,16 +49,112 @@ function HomeScreen() {
       {/* </Box> */}
     </>
   );
-}
+};
 
 export default HomeScreen;
 
 const DesktopLayout = ({ navigate }) => (
-  <Box>
-    <Header></Header>
-    {/* <Banner images={["/banner1.svg", "/banner2.svg"]} /> */}
-    <Banner />
-  </Box>
+  <Flex justify="center" py="2rem">
+    <VStack>
+      {/* <Banner images={["/banner1.svg", "/banner2.svg"]} /> */}
+      <Banner />
+      <Grid templateColumns="repeat(6, 1fr)" gap={6} mt="2rem">
+        <GridItem
+          onClick={() => {
+            navigate("/");
+          }}
+          _hover={{
+            cursor: "pointer",
+            transform: "translateY(-5px)",
+          }}
+        >
+          <VStack>
+            <Icon as={AiOutlineThunderbolt} boxSize={5}></Icon>
+            <Text>Khung giờ săn sale</Text>
+          </VStack>
+        </GridItem>
+
+        <GridItem
+          onClick={() => {
+            navigate("/");
+          }}
+          _hover={{
+            cursor: "pointer",
+            transform: "translateY(-5px)",
+          }}
+        >
+          <VStack>
+            <Icon as={TbTruckDelivery} boxSize={5}></Icon>
+            <Text>Miễn phí ship</Text>
+          </VStack>
+        </GridItem>
+
+        <GridItem
+          onClick={() => {
+            navigate("/");
+          }}
+          _hover={{
+            cursor: "pointer",
+            transform: "translateY(-5px)",
+          }}
+        >
+          <VStack>
+            <Icon as={MdOutlineDiscount} boxSize={5}></Icon>
+            <Text>Mã giảm giá</Text>
+          </VStack>
+        </GridItem>
+
+        <GridItem
+          onClick={() => {
+            navigate("/");
+          }}
+          _hover={{
+            cursor: "pointer",
+            transform: "translateY(-5px)",
+          }}
+        >
+          <VStack>
+            <Icon as={HiMiniDevicePhoneMobile} boxSize={5}></Icon>
+            <Text>Nạp thẻ, dịch vụ & data</Text>
+          </VStack>
+        </GridItem>
+
+        <GridItem
+          onClick={() => {
+            navigate("/");
+          }}
+          _hover={{
+            cursor: "pointer",
+            transform: "translateY(-5px)",
+          }}
+        >
+          <VStack>
+            <Icon as={AiOutlineGlobal} boxSize={5}></Icon>
+            <Text>Hàng quốc tế</Text>
+          </VStack>
+        </GridItem>
+
+        <GridItem
+          onClick={() => {
+            navigate("/");
+          }}
+          _hover={{
+            cursor: "pointer",
+            transform: "translateY(-5px)",
+          }}
+        >
+          <VStack>
+            <Icon as={BsFire} boxSize={5}></Icon>
+            <Text>Bắt trend - Giá sốc</Text>
+          </VStack>
+        </GridItem>
+      </Grid>
+
+      <Flex bg="gray.100">
+        <Categories></Categories>
+      </Flex>
+    </VStack>
+  </Flex>
 );
 
 const MobileLayout = ({ navigate }) => (

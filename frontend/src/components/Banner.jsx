@@ -7,6 +7,7 @@ import {
   HStack,
   Image,
   useBreakpointValue,
+  Flex,
 } from "@chakra-ui/react";
 
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
@@ -20,18 +21,16 @@ function Banner() {
   const isDesktop = useBreakpointValue({ base: false, md: true });
 
   return (
-    <>
-      <Box mx={0}>
-        {isDesktop ? (
-          <DesktopLayout
-            images={images}
-            setCurrentSlideIndex={setCurrentSlideIndex}
-          />
-        ) : (
-          <MobileLayout />
-        )}
-      </Box>
-    </>
+    <Flex mx={0}>
+      {isDesktop ? (
+        <DesktopLayout
+          images={images}
+          setCurrentSlideIndex={setCurrentSlideIndex}
+        />
+      ) : (
+        <MobileLayout />
+      )}
+    </Flex>
   );
 }
 export default Banner;
@@ -47,7 +46,8 @@ const DesktopLayout = ({ images, setCurrentSlideIndex }) => (
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
-      }}>
+      }}
+    >
       {images.map((image) => (
         <SwiperSlide key={image._id}>
           <Image objectFit="cover" width="100%" src={image.src} alt="banner" />
