@@ -54,7 +54,7 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const DesktopLayout = ({ navigate }) => (
-  <Flex justify="center" py="2rem">
+  <Flex justify="center" py="0rem">
     <VStack>
       {/* <Banner images={["/banner1.svg", "/banner2.svg"]} /> */}
       <Banner />

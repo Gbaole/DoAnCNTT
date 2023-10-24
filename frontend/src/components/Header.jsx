@@ -105,7 +105,7 @@ const MobileLayout = ({ navigate }) => <Box w="100%" minH="10rem"></Box>;
 const BrandLogo = () => (
   <a href="/">
     <Image
-      m="2rem"
+      m="1rem"
       alt="E Commerce Logo"
       src="/HeaderLogo.svg"
       minH={"7rem"}

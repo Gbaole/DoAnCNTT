@@ -1,10 +1,14 @@
 import {
+  Card,
+  CardBody,
+  Center,
   Container,
   Divider,
   Flex,
   Grid,
   GridItem,
   Heading,
+  Image,
   Text,
   VStack,
   useBreakpointValue,
@@ -22,17 +26,43 @@ export default Categories;
 
 const DesktopLayout = () => (
   <Flex bg="white" mx="6rem" my="2rem" w="100vw">
-    <VStack w="100%">
-      <Text fontSize="xl" mx="3rem">
+    <VStack w="100%" px="2rem" mb="2rem">
+      <Text fontSize="xl" mx="3rem" my="1rem">
         DANH MỤC
       </Text>
-      <Divider orientation="horizontal" />
-      <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-        <GridItem w="100%" h="10" bg="blue.500" />
-        <GridItem w="100%" h="10" bg="blue.500" />
-        <GridItem w="100%" h="10" bg="blue.500" />
-        <GridItem w="100%" h="10" bg="blue.500" />
-        <GridItem w="100%" h="10" bg="blue.500" />
+      <Grid templateColumns="repeat(8, 1fr)" gap={6}>
+        {items.map((item, id) => {
+          return (
+            <GridItem key={id} colSpan={1}>
+              <Card
+                // onClick={() => }
+                cursor="pointer"
+                w="100%"
+                h="100%"
+                borderRadius="1rem"
+                boxShadow="0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.1)"
+                _hover={{
+                  transform: "scale(1.1)",
+                  transition: "transform 0.2s ease-in-out",
+                }}
+              >
+                <Image
+                  borderTopRadius="1rem"
+                  src={item.img}
+                  alt={item.name}
+                  w="100%"
+                  h="100%"
+                  objectFit="contain"
+                />
+                <CardBody>
+                  <Center>
+                    <Heading size="md">{item.name}</Heading>
+                  </Center>
+                </CardBody>
+              </Card>
+            </GridItem>
+          );
+        })}
       </Grid>
     </VStack>
   </Flex>
@@ -40,7 +70,7 @@ const DesktopLayout = () => (
 
 const MobileLayout = () => <></>;
 
-const item = [
+const items = [
   {
     _id: "1",
     name: "Thời trang nam",
