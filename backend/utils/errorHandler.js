@@ -7,7 +7,7 @@ class ErrorHandler extends Error {
     Error.captureStackTrace(this, this.constructor);
     res.status(statusCode).json({
       success: false,
-      message,
+      message
     });
     // console.log(3);
   }

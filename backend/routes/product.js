@@ -1,18 +1,44 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+// const uploadMultipleImages = require('../middlewares/multer');
+// const multer = require('multer');
+
+// const upload = multer({ dest: 'uploads/' });
 
 const {
-  getAllProducts,
+  getProducts,
   newProduct,
   getSingleProduct,
   updateProduct,
   deleteProduct,
-} = require("../controllers/productController");
+  createProductReview,
+  getProductReviews,
+  deleteReviews,
+  scanBarcode,
+  getProductBarcodes
+} = require('../controllers/productControllers');
 
-router.route("/products").get(getAllProducts);
-router.route("/product/new").post(newProduct);
-router.route("/product/:id").get(getSingleProduct);
-router.route("/product/update/:id").put(updateProduct);
-router.route("/product/delete/:id").delete(deleteProduct);
+const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
+const { processProductForm } = require('../middlewares/processProductForm');
+const { getAllProductTypeWeb } = require('../controllers/adminToolController');
+
+router.route('/products').get(getProducts);
+
+router.route('/product/:id').get(getSingleProduct);
+router.route('/product/scan/:barcode').get(scanBarcode);
+router
+  .route('/product/getbarcode/:id')
+  .get(isAuthenticatedUser, authorizeRoles('admin'), getProductBarcodes);
+
+router.route('/admin/product/new').post(isAuthenticatedUser, newProduct);
+router
+  .route('/admin/product/:id')
+  .put(isAuthenticatedUser, authorizeRoles('admin'), processProductForm, updateProduct)
+  .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteProduct);
+router.route('/review').put(createProductReview);
+router.route('/reviews').get(getProductReviews);
+router.route('/reviews').delete(isAuthenticatedUser, authorizeRoles('admin'), deleteReviews);
+
+router.route('/product/category/all').get(getAllProductTypeWeb);
 
 module.exports = router;

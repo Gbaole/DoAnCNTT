@@ -1,47 +1,37 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
 
-router.get("/login", (req, res) => {
-  res.render("login");
-  if (credentialsValid) {
-    // User is authenticated, create a JWT
-    const payload = {
-      sub: user._id, // User ID
-      // You can add more user data to the payload if needed
-    };
+const {
+  registerUser,
+  loginUser,
+  logout,
+  // forgotPassword,
+  // resetPassword,
+  getUserProfile,
+  // updateProfile,
+  allUsers
+  // getUserDetails,
+  // updateUser,
+  // deleteUser,
+  // updatePassword
+} = require('../controllers/authController');
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h", // Token expiration time (adjust as needed)
-    });
+const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
-    res.json({ token });
-  } else {
-    // Return an error if login fails
-    res.status(401).json({ message: "Authentication failed" });
-  }
-});
+router.route('/register').post(registerUser);
+router.route('/login').post(loginUser);
+router.route('/logout').get(logout);
 
-module.exports = router;
+// router.route('/password/forgot').post(forgotPassword);
+// router.route('/password/reset/:token').put(resetPassword);
+router.route('/me').get(isAuthenticatedUser, getUserProfile);
+// router.route('/password/update').put(isAuthenticatedUser, updatePassword);
 
-router.get("/logout", (req, res) => {
-  //Handle with passportjs
-  res.send("logout");
-});
-
-//auth with google
-
-router.get(
-  "/google",
-  passport.authenticate("google", {
-    scope: ["profile"],
-  })
-);
-
-// callback route for google to redirect to
-router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-  res.send("you reached the redirect URI");
-});
+router.route('/admin/users').get(isAuthenticatedUser, authorizeRoles('admin'), allUsers);
+// router
+//   .route('/admin/user/:id')
+//   .get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails)
+//   .put(isAuthenticatedUser, authorizeRoles('admin'), updateUser)
+//   .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteUser);
 
 module.exports = router;

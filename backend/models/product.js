@@ -1,83 +1,136 @@
-const mongoose = require("mongoose");
-const productSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+
+const mediaSchema = new mongoose.Schema({
+  url: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
-    required: [true, "Product Name Missing"],
-    trim: true,
-    maxLength: [100, "Product Name Max Length is 100 Characters"],
+    required: true
   },
-  price: {
-    type: Number,
-    required: [true, "Price Missing"],
-    default: 0,
-    maxLength: [15, "Price Max Length is 12 Characters"],
+  mediaType: {
+    type: String,
+    required: true
+  }
+});
+
+const productsTypeSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Thieu phan loai name']
   },
   stock: {
     type: Number,
-    required: [true, "Stock Missing"],
-    default: 0,
-    maxLength: [5, "Stock cannot 12 Characters"],
+    required: false,
+    default: 0
+  },
+  price: {
+    type: Number,
+    require: [true, 'Please enter product price'],
+    default: 0.0,
+    maxLength: [9, 'Product price cannot exceed 9 characters']
+  },
+  image: [
+    {
+      type: mediaSchema,
+      required: true
+    }
+  ],
+  barcode: {
+    type: String,
+    required: false
+  }
+});
+
+const productsSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    require: [true, 'Please enter product name'],
+    trim: true,
+    maxLength: [100, 'Product name cannot exceed 100 characters']
+  },
+
+  price: {
+    type: Number,
+    require: [true, 'Please enter product price'],
+    default: 0.0,
+    maxLength: [9, 'Product price cannot exceed 9 characters']
   },
   description: {
     type: String,
-    required: [true, "Description Missing"],
+    require: [true, 'Please enter product description']
   },
-  numOfReviews: {
+  ratings: {
     type: Number,
-    default: 0,
+    default: 0.0
   },
+  thumbnail: [
+    {
+      type: mediaSchema,
+      required: true
+    }
+  ],
+  category: {
+    type: String,
+    required: [true, 'Please select category for this product']
+  },
+  numofReviews: {
+    type: Number,
+    default: 0
+  },
+  productType: [
+    {
+      type: productsTypeSchema,
+      required: [true, 'Thieu productType']
+    }
+  ],
   reviews: [
     {
       name: {
         type: String,
-        required: true,
+        required: true
+      },
+      email: {
+        type: String,
+        required: true
       },
       rating: {
         type: Number,
-        required: true,
+        required: true
       },
       comment: {
         type: String,
-        required: true,
-      },
-    },
+        required: true
+      }
+    }
   ],
-  ratings: {
-    type: Number,
-    default: 0,
-  },
-  // images: [
-  //   {
-  //     public_id: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     url: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //   },
-
-  // ],
-  image: {
-    type: String,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: [true, "Product Category Missing"],
-    enum: {
-      values: ["men clothing", "jewelery", "electronics", "women clothing"],
-      message: "Select product category",
-    },
-  },
-  seller: {
-    type: String,
-    required: [true, "Seller Missing"],
+  createdUser: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now
   },
+  barcode: {
+    type: String,
+    required: false
+  },
+  ecomURL: [
+    {
+      platform: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        required: true
+      }
+    }
+  ]
 });
-module.exports = mongoose.model("Product", productSchema);
+
+const Product = mongoose.model('Product', productsSchema);
+module.exports = { Product };
